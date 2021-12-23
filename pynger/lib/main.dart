@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Explanation!',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.yellow),
       home: MyHomePage(),
     );
   }
@@ -57,17 +57,25 @@ class TaskList extends StatelessWidget {
   }
 }
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   final String label;
 
   const TaskItem({Key? key, @required this.label = ""}) : super(key: key);
 
   @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  bool? _value = false;
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Checkbox(value: false, onChanged: null),
-        Text(label),
+        Checkbox(
+            onChanged: (newValue) => setState(() => _value = newValue),
+            value: _value),
+        Text(widget.label),
       ],
     );
   }
